@@ -203,7 +203,15 @@ emitter:reset()
 
 ## Installation
 
-You can copy and paste `src/emitter.tl` or `src/emitter.lua` into your project.
+**Copy and paste**:
+
+Copy and paste `src/emitter.tl` and/or `src/emitter.lua` into your project.
+
+**Or use LuaRocks**:
+
+```sh
+luarocks install emitter.tl
+```
 
 ## Contributing
 

@@ -8,10 +8,10 @@
 --- Signal slot event dispatcher.
 local record Emitter
     --- An event that can be emitted.
-    --
-    -- Events are registered with an emitter by their type, and the type is defined using a sentinel value of the
-    -- same type as the event. This is typically done using a record for the event, and each instance of the event
-    -- sets its type to the record.
+    ---
+    --- Events are registered with an emitter by their type, and the type is defined using a sentinel value of the
+    --- same type as the event. This is typically done using a record for the event, and each instance of the event
+    --- sets its type to the record.
     interface Event
         --- The type of event used to lookup the event by type.
         type: Event
@@ -35,43 +35,43 @@ local record Emitter
     end
 
     --- Create a new Emitter.
-    -- @return the created Emitter
+    --- @return the created Emitter
     new: function(): Emitter
 
     --- Add an event listener to the object.
-    -- @param event    The event type to subscribe to.
-    -- @param listener Listener to invoke.
-    -- @param config?  Optional listener configuration.
+    --- @param event    The event type to subscribe to.
+    --- @param listener Listener to invoke.
+    --- @param config?  Optional listener configuration.
     on: function<E is Event>(self: Emitter, event: E, listener: Listener<E>, config?: ListenerConfig)
 
     --- Unsubscribes a listener from an event.
-    -- @param event    Event to unsubscribe from.
-    -- @param listener Listener function or ID to unsubscribe.
+    --- @param event    Event to unsubscribe from.
+    --- @param listener Listener function or ID to unsubscribe.
     off: function<E is Event>(self: Emitter, event: E, listener: Listener<E> | string)
 
     --- Add an event listener that is unsubscribed after receiving an event.
-    -- @param event    The event type to subscribe to.
-    -- @param listener Listener to invoke.
-    -- @param config?  Optional listener configuration.
+    --- @param event    The event type to subscribe to.
+    --- @param listener Listener to invoke.
+    --- @param config?  Optional listener configuration.
     once: function<E is Event>(self: Emitter, event: E, listener: Listener<E>, config?: ListenerConfig)
 
     --- Emit an event to all listners.
-    -- @param event Event to emit.
+    --- @param event Event to emit.
     emit: function(self: Emitter, event: Event)
 
     --- Forwards all events of this Emitter to the provided `emitter`.
-    -- @param emitter Emitter that receives all events of the this emitter.
+    --- @param emitter Emitter that receives all events of the this emitter.
     startForwarding: function(self: Emitter, emitter: Emitter)
 
     --- Stops forwarding events of this Emitter to the provided `emitter`.
-    -- @param emitter the emitter to remove.
+    --- @param emitter the emitter to remove.
     stopForwarding: function(self: Emitter, emitter: Emitter)
 
     --- Resets the state of the emitter by removing all listeners and stops all forwarding.
     reset: function(self: Emitter)
 
     --- Unsubscribes all listeners for a specific event type.
-    -- @param name Event to unsubscribe.
+    --- @param name Event to unsubscribe.
     removeAllListeners: function(self: Emitter, event: Event)
 
     _forwarding: LinkedList<EmitterNode>

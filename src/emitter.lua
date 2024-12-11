@@ -138,14 +138,13 @@ end
 
 
 local DEFAULT_CONFIG = { id = "", position = "last" }
-
-local emitter_mt = { __index = Emitter }
+local EMITTER_MT = { __index = Emitter }
 
 function Emitter.new()
    return setmetatable({
       _listeners = {},
       _forwarding = {},
-   }, emitter_mt)
+   }, EMITTER_MT)
 end
 
 function Emitter:reset()

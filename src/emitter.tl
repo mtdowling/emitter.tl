@@ -137,15 +137,14 @@ end
 
 -----------------------------------------------------------------------------
 
-local DEFAULT_CONFIG: Emitter.ListenerConfig = { id = "", position = "last" }
-
-local emitter_mt: metatable<Emitter> = { __index = Emitter }
+local DEFAULT_CONFIG <const>: Emitter.ListenerConfig = { id = "", position = "last" }
+local EMITTER_MT <const>: metatable<Emitter> = { __index = Emitter }
 
 function Emitter.new(): Emitter
     return setmetatable({
         _listeners = {},
         _forwarding = {}
-    }, emitter_mt)
+    }, EMITTER_MT)
 end
 
 function Emitter:reset()
@@ -160,7 +159,7 @@ function Emitter:on<E is Emitter.Event>(event: E, listener: Emitter.Listener<E>,
         self._listeners[event] = list
     end
     config = config or DEFAULT_CONFIG
-    local node: ListenerNode = { id = config.id or "", listener = listener as Emitter.Listener<any> }
+    local node <const>: ListenerNode = { id = config.id or "", listener = listener as Emitter.Listener<any> }
     if config.position == "last" then
         LinkedList.append(list, node as ListNode<any>)
     else
@@ -169,7 +168,7 @@ function Emitter:on<E is Emitter.Event>(event: E, listener: Emitter.Listener<E>,
 end
 
 function Emitter:off<E is Emitter.Event>(event: E, listener: Emitter.Listener<E> | string)
-    local listeners = self._listeners[event]
+    local listeners <const> = self._listeners[event]
     if not listeners then
         return
     elseif listener is string then
@@ -201,7 +200,7 @@ function Emitter:once<E is Emitter.Event>(event: E, listener: Emitter.Listener<E
 end
 
 function Emitter:emit(event: Emitter.Event)
-    local listeners = self._listeners[event.type]
+    local listeners <const> = self._listeners[event.type]
     if listeners then
         local node = listeners.head
         while node do
@@ -222,7 +221,7 @@ function Emitter:removeAllListeners(event: Emitter.Event)
 end
 
 function Emitter:startForwarding(emitter: Emitter)
-    local node: EmitterNode = { emitter = emitter }
+    local node <const>: EmitterNode = { emitter = emitter }
     LinkedList.append(self._forwarding, node as ListNode<any>)
 end
 

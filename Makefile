@@ -1,4 +1,4 @@
-.PHONY: dev build gen check test
+.PHONY: dev build gen check test compile
 
 VERSION=0.1.0
 

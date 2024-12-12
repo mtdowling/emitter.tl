@@ -26,7 +26,7 @@ dependencies = {
 }
 test_dependencies = {
   "busted",
-  "busted-tl",
+  --"busted-tl",
 }
 build_dependencies = {
   "tl >= 0.24.1",

@@ -5,7 +5,9 @@ VERSION=0.1.0
 build: compile check test build
 
 dev:
+	luarocks install busted
 	luarocks install cyan
+	luarocks install --server=https://luarocks.org/dev busted-tl
 
 compile:
 	cyan build

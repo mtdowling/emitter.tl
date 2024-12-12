@@ -18,5 +18,8 @@ check: compile
 test: compile
 	luarocks test
 
+clean:
+	rm -rf build
+
 newrock:
-	luarocks new_version --dir rockspecs --tag=v$(VERSION) emitter.tl-dev-1.rockspec $(VERSION)
+	luarocks new_version --dir build --tag=v$(VERSION) emitter.tl-dev-1.rockspec $(VERSION)

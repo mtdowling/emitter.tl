@@ -26,6 +26,7 @@ dependencies = {
 }
 test_dependencies = {
   "busted",
+  "busted-tl",
 }
 build_dependencies = {
   "tl >= 0.24.1",
@@ -34,6 +35,9 @@ build_dependencies = {
 }
 test = {
   type = "busted",
+  flags = {
+    "--loaders=teal",
+  },
 }
 build = {
   type = "builtin",

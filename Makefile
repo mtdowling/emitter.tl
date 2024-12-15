@@ -2,7 +2,7 @@
 
 VERSION=0.1.0
 
-build: compile check test build
+build: compile check test
 
 dev:
 	luarocks install busted

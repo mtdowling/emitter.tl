@@ -1,6 +1,6 @@
 .PHONY: dev build gen check test compile
 
-VERSION=0.1.0
+VERSION=0.2.0
 
 build: compile check test
 

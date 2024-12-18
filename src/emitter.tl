@@ -14,7 +14,7 @@ local record Emitter
     --- sets its type to the record.
     interface Event
         --- The type of event used to lookup the event by type.
-        type: Event
+        type: self
     end
 
     --- Receives a specific type of emitted events.

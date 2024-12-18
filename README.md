@@ -19,7 +19,7 @@ A small, strongly typed event emitter library for Lua and typed with
 
 First, require the module:
 
-```teal
+```lua
 local Emitter = require("emitter")
 ```
 
@@ -27,7 +27,7 @@ local Emitter = require("emitter")
 
 An `Emitter` is used to publish and subscribe to events.
 
-```teal
+```lua
 local emitter = Emitter.new()
 ```
 
@@ -37,7 +37,7 @@ Events are strongly typed and require a dedicated type for each kind of event.
 
 For reference, this is the type definition of Event:
 
-```teal
+```lua
 local interface Event
     type: Event
 end
@@ -46,7 +46,7 @@ end
 Each record that implements an Event must define a `type` property of the same
 type as the event.
 
-```teal
+```lua
 local record WarningEvent is Emitter.Event
     message: string
 end
@@ -57,13 +57,13 @@ created.
 
 An instance of a `WarningEvent` can be created using basic table syntax:
 
-```teal
+```lua
 local e: WarningEvent = {type = WarningEvent, message = "This is a warning"}
 ```
 
 Alternatively, you can provide a constructor for your events.
 
-```teal
+```lua
 function WarningEvent.new(message: string): WarningEvent
     return {type = WarningEvent, message = message}
 end
@@ -78,7 +78,7 @@ This event can now be emitted and subscribed to.
 Listener functions are subscribed to an event using
 `on<E is Event>(emitter: Emitter, E: event, function(E), config?: ListenerConfig)`.
 
-```teal
+```lua
 emitter:on(WarningEvent, function(event: WarningEvent)
     print(event.message)
 end)
@@ -88,7 +88,7 @@ end)
 
 Events are emitted using `emit(Event: event)`.
 
-```teal
+```lua
 emitter:emit(WarningEvent.new("This is a warning"))
 ```
 
@@ -114,7 +114,7 @@ stop a listener from receiving events.
 
 You can pass in the function that was used to subscribe to the event:
 
-```teal
+```lua
 local function onWarning(event: WarningEvent)
     print(event.message)
 end
@@ -128,14 +128,14 @@ emitter:off(WarningEvent, onWarning)
 When subscribing to an event, an identifier can be given to the listener
 so that the listener can be unsubscribed by ID rather than the actual function.
 
-```teal
+```lua
 emitter:on(WarningEvent, onWarning, { id = "warning" })
 emitter:off(WarningEvent, "warning")
 ```
 
 IDs can be used for grouping event listeners.
 
-```teal
+```lua
 -- While adding listeners, use the same ID to group them.
 emitter:on(WarningEvent, b, { id = "print-group" })
 emitter:on(WarningEvent, b, { id = "print-group" })
@@ -150,7 +150,7 @@ The `once<E is Event>(emitter: Emitter, E: event, function(E))` method can be
 used to subscribe to an event and have the listeners automatically removed
 after the first event is received.
 
-```teal
+```lua
 emitter:once(WarningEvent, function(event: WarningEvent)
     print("Once: " .. event.message)
 end)
@@ -161,7 +161,7 @@ end)
 Emitters can forward all events to another Emitter, allowing for a fan-out
 pattern. This is done using `startForwarding(emitter: Emitter)`:
 
-```teal
+```lua
 local forwardEmitter = Emitter.new()
 
 forwardEmitter:on(WarningEvent, function(event: WarningEvent)
@@ -182,7 +182,7 @@ Child: This is a warning
 An emitter can be detached from another emitter using
 `stopForwarding(emitter: Emitter)`:
 
-```teal
+```lua
 emitter:stopForwarding(forwardEmitter)
 ```
 
@@ -191,13 +191,13 @@ emitter:stopForwarding(forwardEmitter)
 `removeAllListeners(event: Event)` is used to remove all listeners for
 an event type:
 
-```teal
+```lua
 emitter:removeAllListeners(WarningEvent)
 ```
 
 `reset()` is used to unsubscribe all listeners and stop forwarding all events:
 
-```teal
+```lua
 emitter:reset()
 ```
 

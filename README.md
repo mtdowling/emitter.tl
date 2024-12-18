@@ -39,7 +39,7 @@ For reference, this is the type definition of Event:
 
 ```lua
 local interface Event
-    type: Event
+    type: self
 end
 ```
 
